@@ -14,59 +14,71 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float _maxLookAngle = 85f;
 
     private CharacterController _controller;
+    private GameInput _input;
+    private Vector2 _moveInput;
+    private Vector2 _lookInput;
     private Vector3 _velocity;
     private float _xRotation = 0f;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _input = new GameInput();
 
-        // Скрываем курсор
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void OnEnable()
+    {
+        _input.Player.Enable();
+        _input.Player.Move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
+        _input.Player.Move.canceled += _ => _moveInput = Vector2.zero;
+
+        _input.Player.Look.performed += ctx => _lookInput = ctx.ReadValue<Vector2>();
+        _input.Player.Look.canceled += _ => _lookInput = Vector2.zero;
+
+        _input.Player.Jump.performed += _ => TryJump();
+    }
+
+    private void OnDisable()
+    {
+        _input.Player.Disable();
     }
 
     private void Update()
     {
         HandleMovement();
-        HandleMouseLook();
+        HandleLook();
     }
 
     private void HandleMovement()
     {
-        float moveX = Input.GetAxis("Horizontal"); // A/D
-        float moveZ = Input.GetAxis("Vertical");   // W/S
-
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        Vector3 move = transform.right * _moveInput.x + transform.forward * _moveInput.y;
         _controller.Move(move * _moveSpeed * Time.deltaTime);
 
-        // Гравитация
         if (_controller.isGrounded && _velocity.y < 0)
-        {
-            _velocity.y = -2f; // Прижимаем к земле
-        }
-
-        if (Input.GetButtonDown("Jump") && _controller.isGrounded)
-        {
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-        }
+            _velocity.y = -2f;
 
         _velocity.y += _gravity * Time.deltaTime;
         _controller.Move(_velocity * Time.deltaTime);
     }
 
-    private void HandleMouseLook()
+    private void HandleLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
+        float mouseX = _lookInput.x * _mouseSensitivity * Time.deltaTime;
+        float mouseY = _lookInput.y * _mouseSensitivity * Time.deltaTime;
 
-        // Поворот по оси X (камера вверх-вниз)
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -_maxLookAngle, _maxLookAngle);
 
-        _cameraTransform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-
-        // Поворот по оси Y (влево-вправо)
         transform.Rotate(Vector3.up * mouseX);
+        _cameraTransform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+    }
+
+    private void TryJump()
+    {
+        if (_controller.isGrounded)
+            _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
     }
 }
