@@ -1,8 +1,26 @@
-﻿public class GameplayState : IState
+﻿using System;
+using Zenject;
+
+public class GameplayState : IState
 {
+    private SceneLoader _loader;
+    private ScreenController _screenController;
+
+    [Inject]
+    public GameplayState(SceneLoader loader, ScreenController screenController)
+    {
+        _loader = loader;
+        _screenController = screenController;
+    }
+
     public void Enter()
     {
-        UnityEngine.Debug.Log("Entered GameplayState"); 
+        _loader.LoadScene(GameEnums.Scenes.Gameplay, OnLoaded);
+    }
+
+    private void OnLoaded()
+    {
+        _screenController.DestroyCurrentScreen();
     }
 
     public void Exit()
