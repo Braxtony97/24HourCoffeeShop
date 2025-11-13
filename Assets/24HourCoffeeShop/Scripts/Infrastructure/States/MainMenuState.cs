@@ -5,22 +5,23 @@ using Zenject;
 public class MainMenuState : IState
 {
     private SceneLoader _loader;
+    private ScreenController _screenController;
 
     [Inject]
-    public MainMenuState(SceneLoader loader)
+    public MainMenuState(SceneLoader loader, ScreenController screenController)
     {
         _loader = loader;
+        _screenController = screenController;
     }
 
     public void Enter()
     {
-        UnityEngine.Debug.Log("Entered MainMenuState");
-        _loader.LoadScene("MainMenu", OnLoaded);
+        _loader.LoadScene(GameEnums.Scenes.MainMenu, OnLoaded);
     }
 
     private void OnLoaded()
     {
-        UnityEngine.Debug.Log("MainMenu Loaded");
+        _screenController.CreateScreen(GameEnums.ScreenType.MainMenuScreen);
     }
 
     public void Exit()

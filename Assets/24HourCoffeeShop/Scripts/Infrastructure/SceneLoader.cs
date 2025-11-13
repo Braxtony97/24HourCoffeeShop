@@ -14,13 +14,15 @@ public class SceneLoader
         _coroutineRunner = coroutineRunner;
     }
 
-    public void LoadScene (string sceneName, Action onLoaded = null)
+    public void LoadScene (GameEnums.Scenes scene, Action onLoaded = null)
     {
-        _coroutineRunner.StartCoroutine(LoadSceneWithCoroutine(sceneName, onLoaded));
+        _coroutineRunner.StartCoroutine(LoadSceneWithCoroutine(scene, onLoaded));
     }
 
-    private IEnumerator LoadSceneWithCoroutine(string sceneName, Action onLoaded)
+    private IEnumerator LoadSceneWithCoroutine(GameEnums.Scenes scene, Action onLoaded)
     {
+        string sceneName = scene.ToString();
+
         if (SceneManager.GetActiveScene().name == sceneName)
         {
             onLoaded?.Invoke();
