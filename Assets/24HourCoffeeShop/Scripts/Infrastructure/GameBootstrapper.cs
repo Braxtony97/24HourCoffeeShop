@@ -9,6 +9,6 @@ public class GameBootstrapper : MonoBehaviour
     public void Construct(IGameStateMachine gameStateMachine)
     {
         _gameStateMachine = gameStateMachine;
-        _gameStateMachine.Enter<GameplayState>();
+        _gameStateMachine.Enter<MainMenuState>();
     }
 }

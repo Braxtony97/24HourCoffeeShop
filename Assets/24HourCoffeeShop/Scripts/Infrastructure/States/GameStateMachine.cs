@@ -9,17 +9,10 @@ public class GameStateMachine : IGameStateMachine
     private IState _currentState;
 
     [Inject]
-    public void Construct(List<IState> bindedStates)
+    public GameStateMachine(List<IState> states)
     {
-        foreach (IState state in bindedStates)
-        {
-            Type stateType = state.GetType();
-
-            if (!_states.ContainsKey(stateType)) // TODO
-            {
-                _states[stateType] = state;
-            }
-        }
+        foreach (var state in states)
+            _states[state.GetType()] = state;
     }
 
     public void Enter<TState>()
