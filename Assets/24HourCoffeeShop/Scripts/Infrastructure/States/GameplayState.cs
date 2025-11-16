@@ -20,7 +20,7 @@ public class GameplayState : IState
 
     private void OnLoaded()
     {
-        _screenController.DestroyCurrentScreen();
+        _screenController.CreateScreen(GameEnums.ScreenType.PlaymodeScreen);
     }
 
     public void Exit()
