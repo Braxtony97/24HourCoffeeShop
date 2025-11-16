@@ -11,6 +11,7 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<ICoroutineRunner>().FromInstance(_coroutineRunner).AsSingle().NonLazy();
         Container.Bind<ScreenController>().FromInstance(_screenController).AsSingle().NonLazy();
 
+        Container.Bind<GameInput>().AsSingle().NonLazy();
         Container.Bind<SceneLoader>().AsSingle();
 
         Container.Bind<IState>().To<GameplayState>().AsSingle();
