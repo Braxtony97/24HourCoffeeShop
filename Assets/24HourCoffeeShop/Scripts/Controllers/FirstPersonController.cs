@@ -1,8 +1,11 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
+    [SerializeField] private CharacterController _controller;
+
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _gravity = -9.81f;
@@ -13,18 +16,15 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _maxLookAngle = 85f;
 
-    private CharacterController _controller;
-    private GameInput _input;
     private Vector2 _moveInput;
     private Vector2 _lookInput;
     private Vector3 _velocity;
     private float _xRotation = 0f;
 
+    [Inject] private GameInput _input;
+
     private void Awake()
     {
-        _controller = GetComponent<CharacterController>();
-        _input = new GameInput();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

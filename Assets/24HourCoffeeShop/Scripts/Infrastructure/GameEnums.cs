@@ -11,4 +11,9 @@
         MainMenuScreen,
         PlaymodeScreen
     }
+
+    public enum GrabItems
+    {
+        Cup
+    }
 }
