@@ -7,11 +7,13 @@ public class MainMenuScreen : BaseScreen
     [SerializeField] private Button _play;
 
     private IGameStateMachine _gameStateMachine;
+    private SoundController _soundController;
 
     [Inject]
-    public void Construct(IGameStateMachine gameStateMachine)
+    public void Construct(IGameStateMachine gameStateMachine, SoundController soundController)
     {
         _gameStateMachine = gameStateMachine;
+        _soundController = soundController;
     }
 
     public override void Initialize()
@@ -19,8 +21,11 @@ public class MainMenuScreen : BaseScreen
         _play.onClick.AddListener(EnterGameplayState);
     }
 
-    private void EnterGameplayState() =>
+    private void EnterGameplayState()
+    { 
         _gameStateMachine.Enter<GameplayState>();
+        _soundController.PlaySound(GameEnums.Sounds.Ambient, true);
+    }
 
     public override void Deinitialize()
     {

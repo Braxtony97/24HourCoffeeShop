@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class InsertableObject : MonoBehaviour, IInsertable
 {
+    public Action OnInsert;
+
     [SerializeField] private GameEnums.GrabItems _itemType;
     [SerializeField] private Transform _insertPoint;
 
@@ -24,6 +27,8 @@ public class InsertableObject : MonoBehaviour, IInsertable
             transform.rotation = _insertPoint.rotation;
 
             transform.SetParent(_insertPoint);
+
+            OnInsert?.Invoke();
         }
     }
 }

@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: aa66f043685a31e4bb90d0b6128bc3e1
-AssetOrigin:
-  serializedVersion: 1
-  productId: 157735
-  packageName: Extenject Dependency Injection IOC
-  packageVersion: 9.2.0
-  assetPath: Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Media/Sounds/laser2.wav
-  uploadId: 370902
+guid: cbacafd5e18d5fe429c367710d08d0bd
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -18,7 +11,7 @@ AudioImporter:
     compressionFormat: 1
     quality: 1
     conversionMode: 0
-    preloadAudioData: 1
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
