@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GirlController : MonoBehaviour
 {
+    public Action Complete;
+
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Animator _animator;
 
@@ -30,6 +34,8 @@ public class GirlController : MonoBehaviour
 
         while (_agent.remainingDistance > _agent.stoppingDistance)
             yield return null;
+
+        Complete?.Invoke();
 
         _animator.SetTrigger(_idleTriggerHash);
     }

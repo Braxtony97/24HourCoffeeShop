@@ -20,6 +20,8 @@
     public enum Sounds
     {
         Ambient,
-        CoffeeFill
+        CoffeeFill,
+        ScaryAppear,
+        Follow
     }
 }

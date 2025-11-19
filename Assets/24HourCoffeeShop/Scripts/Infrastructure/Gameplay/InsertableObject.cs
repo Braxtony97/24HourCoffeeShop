@@ -21,6 +21,7 @@ public class InsertableObject : MonoBehaviour, IInsertable
         if (CanInsert(grabbable.ItemType))
         {
             grabbable.Drop();
+
             Transform transform = (grabbable as MonoBehaviour).transform;
 
             transform.position = _insertPoint.position;

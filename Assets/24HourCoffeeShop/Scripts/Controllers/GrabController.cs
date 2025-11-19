@@ -44,6 +44,13 @@ public class GrabController : MonoBehaviour
 
     private void Drop()
     {
+        if (_interactor.TryGiveObject(out IDisposer dissposerObject, _holdObject.LayerMask))
+        {
+            dissposerObject.Disposer(_holdObject);
+            _holdObject = null;
+            return;
+        }
+
         _holdObject.Drop();
         _holdObject = null;
     }

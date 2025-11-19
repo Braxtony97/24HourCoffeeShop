@@ -16,7 +16,7 @@ public class SetObjectZoneScenarioElement : ScenarioElement
     private void WaitForFill()
     {
         _fillCoroutine = StartCoroutine(FillRoutine());
-        ExtraAction.StartExtraAction();
+        StartActions();
     }
 
     private IEnumerator FillRoutine()

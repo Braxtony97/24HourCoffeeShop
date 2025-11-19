@@ -1,7 +1,10 @@
+using UnityEngine;
 using Zenject;
 
-public class FillFluidExtraAction : ExtraAction
+public class PlaySoundExtraAction : ExtraAction
 {
+    [SerializeField] private GameEnums.Sounds _sound;
+
     private IGameStateMachine _gameStateMachine;
     private SoundController _soundController;
 
@@ -12,8 +15,9 @@ public class FillFluidExtraAction : ExtraAction
         _soundController = soundController;
     }
 
-    public override void StartExtraAction()
-    {
-        _soundController.PlaySound(GameEnums.Sounds.CoffeeFill);
-    }
+    public override void StartExtraAction() => 
+        _soundController.PlaySound(_sound);
+
+    public override void StopExtraAction() => 
+        _soundController.StopAllSounds();
 }

@@ -45,4 +45,10 @@ public class SoundController : MonoBehaviour
             
         }
     }
+
+    public void StopAllSounds()
+    {
+        _audioSource.Stop();
+        _backgroundMusicSource.Stop();
+    }
 }

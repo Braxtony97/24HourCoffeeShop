@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MoveToScenarioElement : ScenarioElement
 {
@@ -10,6 +7,18 @@ public class MoveToScenarioElement : ScenarioElement
     
     public override void StartElement()
     {
+        _controller.Complete += Complete;
+        _controller.Complete += StopExtraAction;
+        StartActions();
         _controller.MoveTo(_point);
+    }
+
+    private void StopExtraAction() => 
+        StopExtraAction();
+
+    private void OnDestroy()
+    {
+        _controller.Complete -= Complete;
+        _controller.Complete -= StopExtraAction;
     }
 }
