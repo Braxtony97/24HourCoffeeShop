@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaycastInteractor : MonoBehaviour
 {
@@ -32,5 +34,19 @@ public class RaycastInteractor : MonoBehaviour
         }
 
         return insertable != null;
+    }
+
+    internal bool TryGiveObject(out IDisposer disposerObject, LayerMask mask = default)
+    {
+        disposerObject = null;
+
+        Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, _distance, ~mask))
+        {
+            disposerObject = hit.collider.GetComponent<IDisposer>();
+        }
+
+        return disposerObject != null;
     }
 }

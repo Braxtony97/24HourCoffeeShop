@@ -1,0 +1,7 @@
+﻿using UnityEngine;
+
+public abstract class ExtraAction : MonoBehaviour
+{
+    public abstract void StartExtraAction();
+    public abstract void StopExtraAction();
+}

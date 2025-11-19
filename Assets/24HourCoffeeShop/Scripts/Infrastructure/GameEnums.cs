@@ -16,4 +16,12 @@
     {
         Cup
     }
+
+    public enum Sounds
+    {
+        Ambient,
+        CoffeeFill,
+        ScaryAppear,
+        Follow
+    }
 }
