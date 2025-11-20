@@ -13,8 +13,8 @@ public class MoveToScenarioElement : ScenarioElement
         _controller.MoveTo(_point);
     }
 
-    private void StopExtraAction() => 
-        StopExtraAction();
+    private void StopExtraAction() =>
+        StopActions();
 
     private void OnDestroy()
     {
